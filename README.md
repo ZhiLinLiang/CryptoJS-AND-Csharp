@@ -12,7 +12,8 @@ CryptoJS 前端加解密与Csharp后端加解密
                 });
                 return encrypted.toString();
         }
-  2. AES加密     
+```
+2. AES加密
 ```javascript
         function encryptByAES(message, key) {
             var keyHex = CryptoJS.enc.Utf8.parse(key);
@@ -22,3 +23,4 @@ CryptoJS 前端加解密与Csharp后端加解密
             });
             return encrypted.toString();
         }
+```
