@@ -26,25 +26,19 @@ CryptoJS 前端加解密与Csharp后端加解密
 }
 ```
 ```C#
- public static string CryptoJS_DES_Decrypt(string decryptString, string decryptKey)
-        {
-            if (string.IsNullOrEmpty(decryptString))
-                return decryptString;
-            try
-            {
-                var DES = new DESCryptoServiceProvider();
-                DES.Key = Encoding.UTF8.GetBytes(decryptKey);
-                DES.Mode = CipherMode.ECB;
-                DES.Padding = System.Security.Cryptography.PaddingMode.PKCS7;
-                ICryptoTransform DESDecrypt = DES.CreateDecryptor();
-                byte[] Buffer = Convert.FromBase64String(decryptString);
-                return Encoding.UTF8.GetString(DESDecrypt.TransformFinalBlock(Buffer, 0, Buffer.Length));
-            }
-            catch (Exception e)
-            {
-                return string.Empty;
-            }
-        }
+/* C# */
+public static string CryptoJS_DES_Decrypt(string decryptString, string decryptKey)
+{
+      if (string.IsNullOrEmpty(decryptString))
+        return decryptString;
+      var DES = new DESCryptoServiceProvider();
+      DES.Key = Encoding.UTF8.GetBytes(decryptKey);
+      DES.Mode = CipherMode.ECB;
+      DES.Padding = System.Security.Cryptography.PaddingMode.PKCS7;
+      ICryptoTransform DESDecrypt = DES.CreateDecryptor();
+      byte[] Buffer = Convert.FromBase64String(decryptString);
+      return Encoding.UTF8.GetString(DESDecrypt.TransformFinalBlock(Buffer, 0, Buffer.Length));
+}
 ```
 3. AES加密(ECB模式)
 ```javascript
