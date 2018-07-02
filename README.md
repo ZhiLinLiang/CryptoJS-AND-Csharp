@@ -4,6 +4,7 @@ CryptoJS 前端加解密与Csharp后端加解密
 #### CryptoJS 的 ASE与DES 加解密
 1. DES加密(ECB模式)
 ```javascript
+/* javascript */
   function encryptByDES(message, key) {
     var keyHex = CryptoJS.enc.Utf8.parse(key);
     var encrypted = CryptoJS.DES.encrypt(message, keyHex, {
@@ -15,7 +16,7 @@ CryptoJS 前端加解密与Csharp后端加解密
 ```
 1. DES解密(ECB模式)
 ```javascript
-/*javascript*/
+/* javascript */
   function decryptByDES(message,key) {
     var keyHex = CryptoJS.enc.Utf8.parse(key);
     var decrypted = CryptoJS.DES.decrypt(message, keyHex, {
@@ -42,6 +43,7 @@ public static string CryptoJS_DES_Decrypt(string decryptString, string decryptKe
 ```
 3. AES加密(ECB模式)
 ```javascript
+/* javascript */
   function encryptByAES(message, key) {
     var keyHex = CryptoJS.enc.Utf8.parse(key);
     var encrypted = CryptoJS.AES.encrypt(message, keyHex, {
@@ -53,6 +55,7 @@ public static string CryptoJS_DES_Decrypt(string decryptString, string decryptKe
 ```
 4. AES解密(ECB模式)
 ```javascript
+/* javascript */
   function decryptByAES(message, key) {
     var keyHex = CryptoJS.enc.Utf8.parse(key);
     var encrypted = CryptoJS.AES.decrypt(message, keyHex, {
@@ -63,19 +66,20 @@ public static string CryptoJS_DES_Decrypt(string decryptString, string decryptKe
 }
 ```
 ```C#
-   public static string CryptoJS_AES_Decrypt(string decryptString, string decryptKey)
-        {
-            if (string.IsNullOrEmpty(decryptString))
-                return decryptString;
-
-            byte[] keyArray = UTF8Encoding.UTF8.GetBytes(decryptKey);
-            byte[] toEncryptArray = Convert.FromBase64String(decryptString);
-            RijndaelManaged rDel = new RijndaelManaged();
-            rDel.Key = keyArray;
-            rDel.Mode = CipherMode.ECB;
-            rDel.Padding = PaddingMode.PKCS7;
-            ICryptoTransform cTransform = rDel.CreateDecryptor();
-            byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
-            return UTF8Encoding.UTF8.GetString(resultArray);
-        }
+/* C# */
+public static string CryptoJS_AES_Decrypt(string decryptString, string decryptKey)
+{
+  if (string.IsNullOrEmpty(decryptString))
+    return decryptString;
+    
+  byte[] keyArray = UTF8Encoding.UTF8.GetBytes(decryptKey);
+  byte[] toEncryptArray = Convert.FromBase64String(decryptString);
+  RijndaelManaged rDel = new RijndaelManaged();
+  rDel.Key = keyArray;
+  rDel.Mode = CipherMode.ECB;
+  rDel.Padding = PaddingMode.PKCS7;
+  ICryptoTransform cTransform = rDel.CreateDecryptor();
+  byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
+  return UTF8Encoding.UTF8.GetString(resultArray);
+}
 ```
