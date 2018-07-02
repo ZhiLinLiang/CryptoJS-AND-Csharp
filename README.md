@@ -62,3 +62,20 @@ public static string CryptoJS_DES_Decrypt(string decryptString, string decryptKe
       return encrypted.toString(CryptoJS.enc.Utf8);
 }
 ```
+```C#
+   public static string CryptoJS_AES_Decrypt(string decryptString, string decryptKey)
+        {
+            if (string.IsNullOrEmpty(decryptString))
+                return decryptString;
+
+            byte[] keyArray = UTF8Encoding.UTF8.GetBytes(decryptKey);
+            byte[] toEncryptArray = Convert.FromBase64String(decryptString);
+            RijndaelManaged rDel = new RijndaelManaged();
+            rDel.Key = keyArray;
+            rDel.Mode = CipherMode.ECB;
+            rDel.Padding = PaddingMode.PKCS7;
+            ICryptoTransform cTransform = rDel.CreateDecryptor();
+            byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
+            return UTF8Encoding.UTF8.GetString(resultArray);
+        }
+```
